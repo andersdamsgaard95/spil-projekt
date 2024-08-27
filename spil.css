@@ -1,0 +1,83 @@
+@charset "UTF-8";
+* {
+  box-sizing: border-box;
+  margin: 0;
+}
+
+#spørgsmål-kort {
+  margin: 50px 0 0 50px;
+  width: 500px;
+  border: 4px solid red;
+  border-radius: 20px;
+  box-shadow: -2px 2px 0px rgba(255, 0, 0, 0.1), -4px 4px 0px rgba(255, 0, 0, 0.2), -6px 6px 0px rgba(255, 0, 0, 0.3), -8px 8px 0px rgba(255, 0, 0, 0.4), -10px 10px 0px rgba(255, 0, 0, 0.5);
+  padding: 25px;
+  display: flex;
+  flex-direction: column;
+  gap: 50px;
+}
+#spørgsmål-kort #spørgsmål {
+  text-align: center;
+}
+#spørgsmål-kort #svarmuligheder-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  gap: 25px;
+}
+#spørgsmål-kort #svarmuligheder-container #svar-a {
+  grid-column: 1/2;
+  grid-row: 1/2;
+  cursor: pointer;
+}
+#spørgsmål-kort #svarmuligheder-container #svar-b {
+  grid-column: 2/3;
+  grid-row: 1/2;
+  cursor: pointer;
+}
+#spørgsmål-kort #svarmuligheder-container #svar-c {
+  grid-column: 1/2;
+  grid-row: 2/3;
+  cursor: pointer;
+}
+#spørgsmål-kort #svarmuligheder-container #svar-d {
+  grid-column: 2/3;
+  grid-row: 2/3;
+  cursor: pointer;
+}
+
+#knap-container {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+  margin: 50px 0 0 50px;
+}
+#knap-container #interfacedesign-knap {
+  padding: 20px;
+  background-color: red;
+  width: -moz-fit-content;
+  width: fit-content;
+  cursor: pointer;
+}
+#knap-container #webtilgængelighed-knap {
+  padding: 20px;
+  background-color: green;
+  width: -moz-fit-content;
+  width: fit-content;
+  cursor: pointer;
+}
+#knap-container #webudvikling-knap {
+  padding: 20px;
+  background-color: blue;
+  color: white;
+  width: -moz-fit-content;
+  width: fit-content;
+  cursor: pointer;
+}
+#knap-container #wordpress-knap {
+  padding: 20px;
+  background-color: black;
+  color: white;
+  width: -moz-fit-content;
+  width: fit-content;
+  cursor: pointer;
+}/*# sourceMappingURL=spil.css.map */
