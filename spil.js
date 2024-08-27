@@ -416,10 +416,50 @@ const wordpressSpørgsmål = {
     }
 };
 
-//Spørgsmål funktion
+//Spørgsmåls-kategori-knapper
+const interfacedesignKnap = document.getElementById('interfacedesign-knap');
+const webtilgængelighedKnap = document.getElementById('webtilgængelighed-knap'); 
+const webudviklingKnap = document.getElementById('webudvikling-knap');
+const wordpressKnap = document.getElementById('wordpress-knap');
+
+// EventListeners på kategori-knapper
+interfacedesignKnap.addEventListener('click', function() {
+    visSpørgsmål(interfacedesignSpørgsmål);
+});
+webtilgængelighedKnap.addEventListener('click', function() {
+    visSpørgsmål(webtilgængelighedSpørgsmål);
+});
+webudviklingKnap.addEventListener('click', function () {
+    visSpørgsmål(webudviklingSpørgsmål);
+})
+wordpressKnap.addEventListener('click', function () {
+    visSpørgsmål(wordpressSpørgsmål);
+})
+
+//Spørgsmål-kort
+const spørgsmålKort = document.getElementById('spørgsmål-kort');
+
+//Spørgsmål-kort som udgangspunkt gemt
+spørgsmålKort.style.display = 'none';
+
+//Vis Spørgsmål funktion
 function visSpørgsmål(kategori) {
     const spørgsmål = document.getElementById('spørgsmål');
     const svarKasser = document.querySelectorAll('.svarmulighed');
+
+    //Vis spørgsmål kort
+    spørgsmålKort.style.display = 'flex';
+
+    //Skygge på boks
+    if (kategori === interfacedesignSpørgsmål) {
+        spørgsmålKort.className = 'rød-skygge';
+    } else if (kategori === webtilgængelighedSpørgsmål) {
+        spørgsmålKort.className = 'grøn-skygge';
+    } else if (kategori === webudviklingSpørgsmål) {
+        spørgsmålKort.className = 'blå-skygge';
+    } else {
+        spørgsmålKort.className = 'sort-skygge';
+    };
 
     //Tilbageværende spørgsmål efter allerede vist spørgsmål er blevet slettet
     const tilbageværendeSpørgsmål = Object.keys(kategori);
@@ -437,10 +477,9 @@ function visSpørgsmål(kategori) {
     const korrektSvar = kategori[randomKey].rigtigSvar;
 
     //Display svar
-    const svarMuligheder = kategori[randomKey].svar;
+    let svarMuligheder = kategori[randomKey].svar;
 
     svarKasser.forEach(function(element, index) {
-
         element.innerHTML = svarMuligheder[index];
 
         //slet evt bg-farve
@@ -468,36 +507,59 @@ function visSpørgsmål(kategori) {
 
     //Slet allerede vist spørgsmål
     delete kategori[randomKey];
+
+    const kortKryds = document.getElementById('kort-kryds');
+    kortKryds.addEventListener('click', function () {
+        spørgsmålKort.style.display = 'none';
+    })
 }
 
-//Spørgsmåls-kategori-knapper
-const interfacedesignKnap = document.getElementById('interfacedesign-knap');
-const webtilgængelighedKnap = document.getElementById('webtilgængelighed-knap'); 
-const webudviklingKnap = document.getElementById('webudvikling-knap');
-const wordpressKnap = document.getElementById('wordpress-knap');
+//Brikker
+const brikker = document.querySelectorAll('.brik');
 
-interfacedesignKnap.addEventListener('click', function() {
-    visSpørgsmål(interfacedesignSpørgsmål);
-});
-webtilgængelighedKnap.addEventListener('click', function() {
-    visSpørgsmål(webtilgængelighedSpørgsmål);
-});
-webudviklingKnap.addEventListener('click', function () {
-    visSpørgsmål(webudviklingSpørgsmål);
-})
-wordpressKnap.addEventListener('click', function () {
-    visSpørgsmål(wordpressSpørgsmål);
-})
+//Gør brikkerne draggable
+brikker.forEach(function (element) {
 
-//Reaktion på rigtig/forkert spørgsmål
-/*svarKasser.forEach(function(element) {
-    element.addEventListener('click', function(event) {
-        let valgtSvar = event.target.innerHTML; 
-        
-        if (valgtSvar == korrektSvar) {
-            this.style.backgroundColor = 'green';
+    let offsetX = 0;
+    let offsetY = 0;
+    let isDragging = false;
+
+    element.addEventListener('mousedown', function(e) {
+        // Get the current mouse position relative to the element
+        offsetX = e.clientX - element.offsetLeft;
+        offsetY = e.clientY - element.offsetTop;
+        isDragging = true;
+    });
+
+    document.addEventListener('mousemove', function(e) {
+        if (isDragging) {
+            // Prevent text selection while dragging
+            e.preventDefault();
+
+            // Update element's position to follow the mouse
+            element.style.left = `${e.clientX - offsetX}px`;
+            element.style.top = `${e.clientY - offsetY}px`;
         }
-    })
-})*/
+
+    });
+
+    document.addEventListener('mouseup', function() {
+        isDragging = false;
+    });
+
+});
+
+//Terning
+const terning = document.getElementById('terning');
+
+//Terningeslag
+terning.addEventListener('click', function () {
+    let terningeSlag = Math.floor(Math.random() * 6) + 1;
+    terning.innerHTML = terningeSlag;
+
+    if (spørgsmålKort.style.display === 'flex') {
+        spørgsmålKort.style.display = 'none';
+    }
+})
 
 
